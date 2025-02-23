@@ -9,7 +9,7 @@ Installation with Bun
 ```bash
 bun create next-app
 bun add --dev prettier prettier-plugin-tailwindcss prettier-eslint
-bun x --bun shadcn@latest init --dev
+bun x --bun shadcn@latest init
 ```
 
 Create a `.prettier-rc`
