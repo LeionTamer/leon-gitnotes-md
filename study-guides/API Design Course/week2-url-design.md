@@ -2,24 +2,19 @@
 
 ## Resource Naming
 
-### Best Practices
-- Use nouns instead of verbs
-- Prefer plural nouns for collections
-- Keep URLs simple and readable
-- Use lowercase letters
-- Use hyphens instead of underscores
+### URI Best Practices
+- Use nouns, not verbs (e.g., `/articles` not `/getArticles`)
+- Use plural nouns for collections
+- Use kebab-case or lowercase for paths
+- Keep URLs readable and logical
+- Maintain hierarchy in resource relationships
 
-### Examples
-```http
-# Good Examples
-GET /api/users
-GET /api/user-profiles
-GET /api/orders/123/items
-
-# Bad Examples
-GET /api/getUsers
-GET /api/user_profiles
-GET /api/Orders
+#### Examples
+```
+GET /articles                    # Get all articles
+GET /articles/123               # Get specific article
+GET /articles/123/comments      # Get comments for article
+GET /articles?author=john       # Get articles filtered by author
 ```
 
 ### Hierarchical Relationships
