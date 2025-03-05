@@ -1,0 +1,13 @@
+# Ignore everything in local-only directory
+local-only/
+
+# Ignore all files in any directory named local-only
+**/local-only/
+
+# Additional common ignores for development
+.env
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.vscode/
