@@ -3,15 +3,20 @@
 ## Authentication
 
 ### OAuth 2.0
-```javascript
-// Example OAuth 2.0 configuration
-const oauth2Config = {
-    authorizationURL: 'https://auth.example.com/authorize',
-    tokenURL: 'https://auth.example.com/token',
-    clientID: 'YOUR_CLIENT_ID',
-    clientSecret: 'YOUR_CLIENT_SECRET',
-    callbackURL: 'https://api.example.com/callback'
-};
+```python
+from fastapi import FastAPI, Depends
+from fastapi.security import OAuth2AuthorizationCodeBearer
+
+app = FastAPI()
+
+oauth2_scheme = OAuth2AuthorizationCodeBearer(
+    authorizationUrl="https://auth.example.com/authorize",
+    tokenUrl="https://auth.example.com/token"
+)
+
+@app.get("/users/me")
+async def read_users_me(token: str = Depends(oauth2_scheme)):
+    return {"token": token}
 ```
 
 ### JWT Implementation
@@ -123,47 +128,44 @@ async def get_resource(request: Request):
 ```
 
 ## Input Validation
-```typescript
-interface UserInput {
-    email: string;
-    password: string;
-    age: number;
-}
+```python
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, EmailStr
 
-function validateUser(input: UserInput): ValidationResult {
-    const errors = [];
-    
-    if (!isValidEmail(input.email)) {
-        errors.push('Invalid email format');
-    }
-    
-    if (input.password.length < 8) {
-        errors.push('Password must be at least 8 characters');
-    }
-    
-    if (input.age < 18) {
-        errors.push('Must be 18 or older');
-    }
-    
-    return {
-        isValid: errors.length === 0,
-        errors
-    };
-}
+app = FastAPI()
+
+class UserInput(BaseModel):
+    email: EmailStr
+    password: str
+    age: int
+
+@app.post("/validate-user")
+def validate_user(input: UserInput):
+    if len(input.password) < 8:
+        raise HTTPException(status_code=400, detail="Password must be at least 8 characters")
+    if input.age < 18:
+        raise HTTPException(status_code=400, detail="Must be 18 or older")
+    return {"message": "Input is valid"}
 ```
 
 ## CORS Configuration
-```typescript
-// Express.js CORS setup
-import cors from 'cors';
+```python
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-app.use(cors({
-    origin: ['https://trusted-domain.com'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-    maxAge: 86400
-}));
+app = FastAPI()
+
+origins = [
+    "https://trusted-domain.com",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 ```
 
 ## SQL Injection Prevention
