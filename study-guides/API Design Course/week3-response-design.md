@@ -40,18 +40,45 @@
 ```
 
 ### Global Exception Handling Example
-```java
-@ControllerAdvice
-public class GlobalExceptionHandler {
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleResourceNotFound(ResourceNotFoundException ex) {
-        ErrorResponse error = new ErrorResponse(
-            "RESOURCE_NOT_FOUND",
-            ex.getMessage()
-        );
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-    }
-}
+```python
+class CustomException(HTTPException):
+    def __init__(
+        self,
+        status_code: int,
+        error_code: str,
+        message: str,
+        details: Optional[list] = None
+    ):
+        self.status_code = status_code
+        self.error_code = error_code
+        self.message = message
+        self.details = details
+
+@app.exception_handler(CustomException)
+async def custom_exception_handler(request: Request, exc: CustomException):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={
+            "error": {
+                "code": exc.error_code,
+                "message": exc.message,
+                "details": exc.details,
+                "timestamp": datetime.utcnow().isoformat(),
+                "requestId": request.state.request_id
+            }
+        }
+    )
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int):
+    if item_id == 404:
+        raise CustomException(
+            status_code=404,
+            error_code="RESOURCE_NOT_FOUND",
+            message=f"Item {item_id} not found",
+            details=[{"field": "item_id", "message": "Item does not exist"}]
+        )
+    return {"item_id": item_id}
 ```
 
 ## Data Serialization

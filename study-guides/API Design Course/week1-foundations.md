@@ -89,13 +89,81 @@ async def get_preferences(current_user: str = Depends(get_current_user)):
     }
 ```
 
-
 #### Common Challenges
 - Authentication management
 - Caching strategies
 - Performance considerations
 - Handling complex workflows
 
+### Caching Strategies
+
+#### Client-Side Caching
+- Browser cache using HTTP headers
+  - `Cache-Control`
+  - `ETag`
+  - `Last-Modified`
+  - `Expires`
+
+#### Server-Side Caching
+1. **In-Memory Caching**
+   - Redis
+   - Memcached
+   - Application memory
+   - Fastest retrieval times
+   - Limited by available memory
+
+2. **Database Caching**
+   - Query cache
+   - Result cache
+   - Database-specific solutions
+   - Useful for complex queries
+
+3. **CDN Caching**
+   - Geographic distribution
+   - Edge locations
+   - Best for static content
+   - Reduced latency
+
+#### Cache Control Headers
+```http
+# Example Cache Headers
+Cache-Control: public, max-age=3600
+ETag: "33a64df551425fcc55e4d42a148795d9f25f89d4"
+Last-Modified: Wed, 21 Oct 2015 07:28:00 GMT
+```
+
+#### Implementation Patterns
+1. **Cache-Aside (Lazy Loading)**
+   ```python
+   def get_data(key):
+       value = cache.get(key)
+       if value is None:
+           value = database.query(key)
+           cache.set(key, value)
+       return value
+   ```
+
+2. **Write-Through**
+   ```python
+   def save_data(key, value):
+       database.save(key, value)
+       cache.set(key, value)
+   ```
+
+#### Best Practices
+- Set appropriate TTL (Time-To-Live)
+- Implement cache invalidation
+- Use cache versioning
+- Monitor cache hit ratios
+- Consider cache coherency
+- Handle cache stampede
+
+#### Common Challenges
+- Cache invalidation
+- Data consistency
+- Memory management
+- Cold start problems
+- Cache penetration
 
 ## HTTP Methods
 

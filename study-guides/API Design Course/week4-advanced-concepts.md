@@ -1,40 +1,95 @@
 # Week 4: Advanced Concepts
 
-## Pagination
+## Pagination Strategies
 
 ### Offset-Based Pagination
+- Uses `limit` and `offset` parameters
+- Simple to implement
+- Common in SQL databases
+
 ```http
-GET /api/products?limit=10&offset=20
+GET /api/articles?limit=10&offset=20
 ```
 
-```json
-{
-    "data": [...],
-    "pagination": {
-        "total": 100,
-        "limit": 10,
-        "offset": 20,
-        "next": "/api/products?limit=10&offset=30",
-        "previous": "/api/products?limit=10&offset=10"
+#### Example Implementation
+```python
+@app.get("/articles")
+async def get_articles(limit: int = 10, offset: int = 0):
+    articles = db.query(Article).offset(offset).limit(limit).all()
+    return {
+        "data": articles,
+        "metadata": {
+            "limit": limit,
+            "offset": offset,
+            "total": db.query(Article).count()
+        }
     }
-}
 ```
+
+#### Pros
+- Simple to implement
+- Works well with known total counts
+- Easy to jump to specific pages
+
+#### Cons
+- Performance issues with large offsets
+- Inconsistent results with frequent updates
+- Skipped or duplicate items possible
 
 ### Cursor-Based Pagination
+- Uses a pointer to the last item
+- Based on unique, sequential values
+- Better for real-time data
+
 ```http
-GET /api/products?limit=10&cursor=eyJpZCI6MTAwfQ==
+GET /api/articles?limit=10&cursor=eyJpZCI6MTAwfQ==
 ```
 
-```json
-{
-    "data": [...],
-    "pagination": {
-        "limit": 10,
-        "next_cursor": "eyJpZCI6MjAwfQ==",
-        "has_more": true
+#### Example Implementation
+```python
+@app.get("/articles")
+async def get_articles(limit: int = 10, cursor: str = None):
+    query = db.query(Article).order_by(Article.id)
+    
+    if cursor:
+        last_id = decode_cursor(cursor)
+        query = query.filter(Article.id > last_id)
+    
+    articles = query.limit(limit).all()
+    next_cursor = encode_cursor(articles[-1].id) if articles else None
+    
+    return {
+        "data": articles,
+        "metadata": {
+            "next_cursor": next_cursor,
+            "limit": limit
+        }
     }
-}
 ```
+
+#### Pros
+- Consistent results
+- Better performance
+- Works well with real-time data
+- No skipped or duplicate items
+
+#### Cons
+- Can't jump to specific pages
+- More complex to implement
+- Requires stable sorting key
+
+### Best Practices
+- Use cursor-based for:
+  - Real-time data
+  - Large datasets
+  - Mobile apps
+  - Infinite scroll
+
+- Use offset-based for:
+  - Admin interfaces
+  - Small datasets
+  - When page jumping is needed
+  - Simple CRUD applications
 
 ## Filtering and Sorting
 
