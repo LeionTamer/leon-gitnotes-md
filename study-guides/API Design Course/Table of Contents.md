@@ -14,3 +14,9 @@ This comprehensive 8-week course covers modern API design principles, from basic
 6. [API Gateways and Monitoring](week6-gateways-monitoring.md)
 7. [Asynchronous Processing and gRPC/WebSockets](week7-async-grpc.md)
 8. [Testing and Documentation](week8-testing-docs.md)
+
+---
+tags:
+  - API Design
+  - API Foundations
+---

@@ -39,28 +39,71 @@ def validate_token(token):
 ## Authorization
 
 ### Role-Based Access Control (RBAC)
-```java
-@PreAuthorize("hasRole('ADMIN')")
-@GetMapping("/users")
-public List<User> getAllUsers() {
-    return userService.findAll();
-}
 
-@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
-@GetMapping("/reports")
-public List<Report> getReports() {
-    return reportService.findAll();
-}
+```python
+from fastapi import FastAPI, Depends, HTTPException, status
+from typing import List
+
+app = FastAPI()
+
+# Dummy user model and retrieval
+class User:
+    def __init__(self, username: str, roles: List[str]):
+        self.username = username
+        self.roles = roles
+
+def get_current_user():
+    # Simulated user; replace with real authentication logic
+    return User("johndoe", ["ADMIN"])
+
+def role_required(required_roles: List[str]):
+    def dependency(user: User = Depends(get_current_user)):
+        if not any(role in user.roles for role in required_roles):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Operation not permitted"
+            )
+        return user
+    return dependency
+
+@app.get("/users")
+def get_all_users(user: User = Depends(role_required(["ADMIN"]))):
+    # ...existing logic to fetch users...
+    return {"users": "list of users"}
+
+@app.get("/reports")
+def get_reports(user: User = Depends(role_required(["ADMIN", "MANAGER"]))):
+    # ...existing logic to fetch reports...
+    return {"reports": "list of reports"}
 ```
 
 ### Attribute-Based Access Control (ABAC)
+
 ```python
-def check_access(user, resource, action):
-    policy = {
-        'read': lambda u, r: u.department == r.department,
-        'write': lambda u, r: u.role == 'ADMIN' and u.department == r.department
-    }
-    return policy[action](user, resource)
+from fastapi import Depends, HTTPException, status
+
+# Using the same User model and get_current_user from above
+
+def check_access(action: str):
+    def dependency(user: User = Depends(get_current_user)):
+        # Dummy resource attributes; in practice, fetch the resource or its details
+        resource = {"department": "sales"}
+        policy = {
+            "read": lambda u, r: hasattr(u, "department") and u.department == r["department"],
+            "write": lambda u, r: "ADMIN" in u.roles and hasattr(u, "department") and u.department == r["department"]
+        }
+        if not policy[action](user, resource):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Not authorized"
+            )
+        return user
+    return dependency
+
+@app.get("/secure-resource")
+def secure_resource(user: User = Depends(check_access("read"))):
+    # ...existing resource logic...
+    return {"resource": "secured data"}
 ```
 
 ## Rate Limiting
@@ -124,24 +167,29 @@ app.use(cors({
 ```
 
 ## SQL Injection Prevention
-```typescript
-// Using parameterized queries
-import { Pool } from 'pg';
+```python
+from fastapi import FastAPI, HTTPException
+from sqlmodel import SQLModel, Field, create_engine, Session, select
 
-const pool = new Pool();
+app = FastAPI()
+DATABASE_URL = "postgresql://user:password@localhost/dbname"
+engine = create_engine(DATABASE_URL)
 
-async function getUserById(id: number) {
-    // Safe way
-    const result = await pool.query(
-        'SELECT * FROM users WHERE id = $1',
-        [id]
-    );
-    
-    // Unsafe way - DON'T DO THIS
-    // const result = await pool.query(
-    //     `SELECT * FROM users WHERE id = ${id}`
-    // );
-    
-    return result.rows[0];
-}
+class User(SQLModel, table=True):
+    id: int = Field(default=None, primary_key=True)
+    name: str
+    email: str
+
+@app.on_event("startup")
+def on_startup():
+    SQLModel.metadata.create_all(engine)
+
+@app.get("/users/{user_id}")
+def read_user(user_id: int):
+    with Session(engine) as session:
+        statement = select(User).where(User.id == user_id)
+        user = session.exec(statement).first()
+        if user is None:
+            raise HTTPException(status_code=404, detail="User not found")
+        return user
 ```
