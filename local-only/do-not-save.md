@@ -1,0 +1,1 @@
+this is for obsidian use only, to have local snippets
