@@ -4,7 +4,7 @@ See [UV documentation](https://docs.astral.sh/uv/)
 
 ```bash
 pip install uv
-uv python install
+uv python install 3.12
 ```
 
 The `uv python install` installs the latest version of python
@@ -12,7 +12,7 @@ The `uv python install` installs the latest version of python
 Start a package-managed project `uv init <project_name>`
 
 ```bash
-uv init my-app
+uv init --python 3.12 my-app
 cd my-app
 code .
 ```
@@ -30,7 +30,8 @@ uv add --dev ipykernel
 
 ## How to add a local package
 
-```bash
-uv pip install "muspan @ ./package-muspan"
-```
+make sure the package is not zipped, and named correctly and add it to the root of the project
 
+```bash
+uv pip install "muspan @ ./my-package"
+```
