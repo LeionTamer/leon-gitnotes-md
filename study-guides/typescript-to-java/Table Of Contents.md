@@ -17,6 +17,20 @@
 - Access modifiers (public, private, protected)
 - Package system vs ES modules
 
+### 1.3 Loops and Control Flow
+- for loops vs forEach
+- while and do-while loops
+- Enhanced for-loop (for-each)
+- Loop control statements (break, continue)
+- Switch statements and expressions
+
+### 1.4 Arrays and Memory
+- Array declaration and initialization
+- Multi-dimensional arrays
+- Array utilities and methods
+- Memory management differences
+- Array vs ArrayList
+
 ## 2. Type System Deep Dive
 ### 2.1 Java Types
 - Primitive types vs Reference types
