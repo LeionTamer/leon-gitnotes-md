@@ -64,3 +64,50 @@ There is a trend in Social media called "AI Doom"
 
 ## Featured | Embrace the Chaos – The Unexpected Path to Breakthrough Ideas
 
+Constraints are good. Canvases that are too empty might not resolve into ideas. 
+
+We can look for creativity from chaos. Opposite from whay everyone else knows.
+
+Story: Long Island Iced Tea came about during the prohibition era. Because the people were not allowed to go drinking, so they created a very potent drink that looks like Iced Tea.
+
+Story: Capoeira also rooted from prohibition. They hid they contacts into dance.
+
+What can drive inspirations? Unpredictability, constrationst, emotions, unlearning, and noise.
+
+We are prediction making machines.
+
+Story: Jaws machine became iconic because the shark machine broke down when submerged in salt water.
+
+"Emergency evolves into energence"
+
+
+Workplaces are trying tos tamp out chaos, which in trun, stamps out creativity.
+
+"Revenue per employee" is the new metric.
+
+3 ways to condition creativity: Time constration, collisions, and role play.
+
+Predictability is safe until it's not.
+
+Think like a drug smuiggler.
+
+Common constraints: Label constrain, budget constraint, product road blocks.
+
+Emotions are our iniyion advantage over technology.
+
+AI cannot feel emotions, cannot touch it.
+
+It is best to try to create something when you have hightened emotions (like angry and super happy).
+
+Emotion is a catalyst of creativity,
+
+Proactively unlearn things. Expeirence is always a godo thing,
+
+Exercise: Think of a chair, you will think of the standard shapes of a chair, but you do not think like what a dentist chair looks like.
+
+When the world gets louder, our apetite gets smaller. It makes you retreat or shut-people out.
+
+Creativity is a function of the library inside your head.
+
+How do you remain open? Steal ideas.
+
