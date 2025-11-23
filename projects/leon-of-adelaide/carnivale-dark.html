@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Midnight Circus</title>
+    <style>
+        /* FONTS */
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display+SC:wght@400;700&family=Roboto+Slab:wght@300;700&display=swap');
+
+        :root {
+            --bg-dark: #1A1818;
+            --text-light: #EBE3D0;
+            --velvet-red: #A32822;
+            --metallic-gold: #D4A017;
+            --midnight-teal: #2F4F5D;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Lora', serif;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            
+            /* Vignette Effect (Spotlight) + Noise Texture */
+            background-image: 
+                radial-gradient(circle, transparent 40%, #000000 100%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
+        }
+
+        /* THE GOLD BORDER FRAME */
+        .main-frame {
+            border: 2px solid var(--metallic-gold);
+            outline: 4px solid var(--bg-dark); /* Gap between borders */
+            box-shadow: 0 0 0 6px var(--metallic-gold); /* Outer border */
+            
+            max-width: 800px;
+            width: 100%;
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.03); /* Very slight lightness for depth */
+            position: relative;
+            text-align: center;
+        }
+
+        /* HEADER */
+        header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--velvet-red);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display SC', serif;
+            font-size: 4rem;
+            color: var(--metallic-gold);
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+        }
+
+        h1 span {
+            display: block;
+            font-size: 1rem;
+            color: var(--text-light);
+            font-family: 'Roboto Slab', serif;
+            letter-spacing: 5px;
+            margin-bottom: 15px;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+
+        h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.4rem;
+            color: var(--velvet-red);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 40px;
+            border-top: 1px solid var(--velvet-red);
+            display: inline-block;
+            padding-top: 10px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(235, 227, 208, 0.8); /* Slightly transparent text */
+        }
+
+        /* GRID LAYOUT */
+        .acts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+            margin-top: 40px;
+        }
+
+        .act-item h3 {
+            font-family: 'Playfair Display SC', serif;
+            color: var(--metallic-gold);
+            margin-bottom: 5px;
+            font-size: 1.4rem;
+        }
+
+        .act-item p {
+            font-size: 0.95rem;
+            border-left: 2px solid var(--midnight-teal);
+            padding-left: 15px;
+        }
+
+        /* GLOWING BUTTON */
+        .btn-admit {
+            display: inline-block;
+            margin-top: 60px;
+            padding: 15px 50px;
+            border: 1px solid var(--metallic-gold);
+            background-color: transparent;
+            color: var(--metallic-gold);
+            font-family: 'Playfair Display SC', serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(212, 160, 23, 0.1);
+        }
+
+        .btn-admit:hover {
+            background-color: var(--metallic-gold);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px rgba(212, 160, 23, 0.4); /* Golden Glow */
+        }
+
+        /* DECORATIVE ORNAMENTS */
+        .ornament {
+            font-size: 2rem;
+            color: var(--velvet-red);
+            display: block;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 600px) {
+            .acts-grid { grid-template-columns: 1fr; text-align: center; }
+            .act-item p { border-left: none; border-top: 2px solid var(--midnight-teal); padding-top: 10px; }
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-frame">
+        <header>
+            <h1><span>One Night Only</span>NIGHT CIRCUS</h1>
+        </header>
+
+        <div class="ornament">⚜</div>
+
+        <p>Enter a world of shadow and gold. <br> 
+        Where the impossible becomes reality under the moonlight.</p>
+
+        <h2>Performances</h2>
+
+        <div class="acts-grid">
+            <div class="act-item">
+                <h3>Fire Breathers</h3>
+                <p>Illuminating the dark with tongues of flame.</p>
+            </div>
+            <div class="act-item">
+                <h3>The Shadow Puppets</h3>
+                <p>Stories told through silhouette and mystery.</p>
+            </div>
+            <div class="act-item">
+                <h3>Midnight Acrobats</h3>
+                <p>Silent movements above the crowd.</p>
+            </div>
+            <div class="act-item">
+                <h3>Fortune Teller</h3>
+                <p>Discover what the cards hold for your future.</p>
+            </div>
+        </div>
+
+        <a href="#" class="btn-admit">ENTER THE TENT</a>
+
+    </div>
+
+</body>
+</html>

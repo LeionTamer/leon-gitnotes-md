@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Grand Circus Theme</title>
+    <style>
+        /* IMPORT GOOGLE FONTS */
+        @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Rye&display=swap');
+
+        :root {
+            --paper: #EBE3D0;
+            --red: #CD3A33;
+            --gold: #F4C430;
+            --teal: #6B9FAB;
+            --ink: #2C2B2B;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--paper);
+            /* Adding a subtle grain texture to mimic paper */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            color: var(--ink);
+            font-family: 'Libre Baskerville', serif;
+            text-align: center;
+        }
+
+        /* HERO SECTION */
+        header {
+            padding: 60px 20px;
+            border-top: 10px solid var(--teal);
+            border-bottom: 5px solid var(--red);
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+        }
+
+        h1 {
+            font-family: 'Rye', serif;
+            font-size: 5rem;
+            color: var(--red);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 3px 3px 0px var(--gold);
+        }
+
+        .sub-heading {
+            font-family: 'Alfa Slab One', cursive;
+            color: var(--teal);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            display: inline-block;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        /* RIBBON EFFECT */
+        .ribbon {
+            background: var(--red);
+            color: white;
+            display: inline-block;
+            padding: 15px 60px;
+            font-family: 'Rye', serif;
+            font-size: 2rem;
+            position: relative;
+            margin: 30px 0;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* Creating the ribbon fold effect */
+        .ribbon::before, .ribbon::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            z-index: -1;
+            border: 20px solid darken(#CD3A33, 20%);
+            border-top-color: #962a25; /* Darker Red */
+            border-bottom-color: #962a25;
+        }
+        .ribbon::before { left: -20px; border-left-color: transparent; }
+        .ribbon::after { right: -20px; border-right-color: transparent; }
+
+        /* CONTENT CARDS */
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .card {
+            border: 2px solid var(--gold);
+            padding: 30px;
+            background: rgba(255,255,255,0.5);
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--red);
+        }
+
+        /* Corner decorations for cards */
+        .card::after {
+            content: '★';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--red);
+            font-size: 20px;
+            background: var(--paper);
+            padding: 0 10px;
+        }
+
+        h3 {
+            font-family: 'Rye', serif;
+            color: var(--ink);
+            font-size: 1.5rem;
+            margin-top: 0;
+        }
+
+        /* TICKET BUTTON */
+        .btn-ticket {
+            background-color: var(--gold);
+            color: var(--ink);
+            border: 2px dashed var(--ink);
+            padding: 15px 40px;
+            font-family: 'Alfa Slab One', cursive;
+            font-size: 1.2rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 40px;
+            margin-bottom: 60px;
+            transition: all 0.3s;
+        }
+
+        .btn-ticket:hover {
+            background-color: var(--red);
+            color: white;
+            border-color: white;
+        }
+
+        footer {
+            background-color: var(--teal);
+            color: white;
+            padding: 40px;
+            font-family: 'Libre Baskerville', serif;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="sub-heading">Greatest of the World</span>
+        <h1>Circus</h1>
+        
+        <div class="ribbon">WELCOME</div>
+        
+        <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
+            Join us for a night of incredible magic, amazing acrobats, and gorgeous spectacles under the big top.
+        </p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h3>Magic Show</h3>
+            <p>Witness the impossible with our world-renowned illusionists. A spectacle that bends reality.</p>
+        </div>
+        
+        <div class="card">
+            <h3>Acrobats</h3>
+            <p>High-flying stunts and death-defying leaps that will leave you on the edge of your seat.</p>
+        </div>
+
+        <div class="card">
+            <h3>Exotic Animals</h3>
+            <p>A parade of nature's most majestic creatures in a display of harmony and beauty.</p>
+        </div>
+    </div>
+
+    <a href="#" class="btn-ticket">Get Tickets Now</a>
+
+    <footer>
+        <p>10 - 17 August • Central Park</p>
+        <p style="font-size: 0.8rem; opacity: 0.8;">www.domain.url</p>
+    </footer>
+
+</body>
+</html>
