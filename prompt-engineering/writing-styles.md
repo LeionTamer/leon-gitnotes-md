@@ -55,3 +55,7 @@ He will be providing a snippet of  his resume (work history) and you will try to
 
 At the end of the interview, provide a revised version of the snippet based.
 ```
+
+## Markdown with Latex support
+
+Please provide the raw Markdown source code of your last response inside a single code block. Ensure all LaTeX equations are preserved using standard $ (inline) and $$ (block) delimiters.
